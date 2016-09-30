@@ -1,0 +1,11 @@
+.movie {
+  height: 150px;
+  width: 600px;
+  border: 1px solid black;
+}
+
+.action {
+  height: 80px;
+  width: 500px;
+  border: 1px solid black;
+}
