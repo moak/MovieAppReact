@@ -36,7 +36,8 @@ let movies = [
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
@@ -46,13 +47,13 @@ app.use(bodyParser.json())
 
 // LIST MOVIES
 app.get('/movies', function(req, res){
-  console.log('movie API', movies);
+  console.log('movie API', movies.length);
   res.json(movies);
 });
 
 // ADD MOVIE
 app.post('/movies', function(req, res){
-  console.log('req', req);
+  console.log('BODYYYYYYYYYYYYYYY', req.body);
   let movieExists = movies.filter((movie) => {
     return movie.title === req.body.title
   })
@@ -82,7 +83,7 @@ app.delete('/movies/:id', (req, res) =>  {
     res.sendStatus(404);
   }
   else {
-    movies.splice(req.params.id, 1);
+    movies = movies.filter( movie => movie.id !== parseInt(req.params.id));
     res.sendStatus(204);
   }
 })

@@ -4,9 +4,13 @@ export const GET_MOVIES         =  'GET_MOVIES';
 export const GET_MOVIES_SUCCESS =  'GET_MOVIES_SUCCESS';
 export const GET_MOVIES_FAILURE =  'GET_MOVIES_FAILURE';
 
-export const ADD_MOVIES         =  'ADD_MOVIES';
-export const ADD_MOVIES_SUCCESS =  'ADD_MOVIES_SUCCESS';
-export const ADD_MOVIES_FAILURE =  'ADD_MOVIES_FAILURE';
+export const ADD_MOVIE         =  'ADD_MOVIE';
+export const ADD_MOVIE_SUCCESS =  'ADD_MOVIE_SUCCESS';
+export const ADD_MOVIE_FAILURE =  'ADD_MOVIE_FAILURE';
+
+export const EDIT_MOVIE         =  'EDIT_MOVIE';
+export const EDIT_MOVIE_SUCCESS =  'EDIT_MOVIE_SUCCESS';
+export const EDIT_MOVIE_FAILURE =  'EDIT_MOVIE_FAILURE';
 
 
 // GET MOVIES
@@ -14,7 +18,7 @@ export const getMoviesSuccess = (res) => {
   console.log('res', res);
   return {
     type: GET_MOVIES_SUCCESS,
-    movies: res,
+    movies: res.data,
   }
 }
 
@@ -25,6 +29,7 @@ export const getMoviesFailure = () => {
 }
 
 export const getMovies = () => {
+  console.log('get movie');
   return dispatch => {
     return Movie.getMovies().then(
       (res) => dispatch(getMoviesSuccess(res)),
@@ -34,18 +39,41 @@ export const getMovies = () => {
 };
 
 
+// EDIT MOVIE
+export const editMovieSuccess = (movie) => {
+  return {
+    type: EDIT_MOVIE_SUCCESS,
+    movie: movie,
+  }
+}
+
+export const editMovieFailure = () => {
+  return {
+    type: EDIT_MOVIE_FAILURE,
+  }
+}
+
+export const editMovie = (movie) => {
+  return dispatch => {
+    return Movie.editMovie(movie).then(
+      () => dispatch(editMovieSuccess(movie)),
+      () => dispatch(editMovieFailure())
+    );
+  };
+};
+
+
 // ADD MOVIE
 export const addMovieSuccess = (res) => {
-  console.log(res);
   return {
-    type: ADD_MOVIES_SUCCESS,
-    movie: res,
+    type: ADD_MOVIE_SUCCESS,
+    movie: res.data,
   }
 }
 
 export const addMovieFailure = () => {
   return {
-    type: ADD_MOVIES_FAILURE,
+    type: ADD_MOVIE_FAILURE,
   }
 }
 
@@ -58,16 +86,7 @@ export const addMovie = (movie) => {
   };
 };
 
-
-export function deleteMovieAPI(id) {
-  return dispatch => {
-    return Movie.deleteMovie(id).then(
-      (res) => dispatch(deleteMovieApiSuccess(res)),
-      () => dispatch(deleteMovieApiFailure())
-    );
-  };
-}
-
+// DELETE MOVIE
 export function deleteMovieApiSuccess(id) {
   return {
     type: 'DELETE_MOVIE_API_SUCCESS',
@@ -82,17 +101,11 @@ export function deleteMovieApiFailure(id) {
 }
 
 
-// export function addMovie(movie) {
-//   return {
-//     type: 'ADD_MOVIE',
-//     title: movie.title,
-//     description: movie.description,
-//   }
-// }
-
-export function deleteMovie(title) {
-  return {
-    type: 'DELETE_MOVIE',
-    title: title,
-  }
+export function deleteMovie(id) {
+  return dispatch => {
+    return Movie.deleteMovie(id).then(
+      () => dispatch(deleteMovieApiSuccess(id)),
+      () => dispatch(deleteMovieApiFailure())
+    );
+  };
 }

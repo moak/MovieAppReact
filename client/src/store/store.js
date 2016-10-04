@@ -8,7 +8,8 @@ export default (initialState) => {
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(thunk)
+      applyMiddleware(thunk),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   )
 };

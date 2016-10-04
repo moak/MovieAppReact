@@ -17,8 +17,6 @@ class Movie extends Component {
     // this.props[e.target.name] = e.target.value;
 
     this.props.handleEditChange();
-
-    console.log(this.props);
   }
 
   enableEditing() {
@@ -27,12 +25,7 @@ class Movie extends Component {
 
   disableEditing() {
     this.setState({editing: false});
-    console.log(this.refs.description.value);
-    console.log(this.refs.title.value);
-
     this.props.saveChange(this.props.id, this.refs.title.value, this.refs.description.value)
-    // this.
-    // update
   }
 
 
