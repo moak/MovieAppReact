@@ -10,7 +10,9 @@ class MovieContainer extends Component {
   constructor(props) {
     super(props)
     this.saveChange = this.saveChange.bind(this);
+    this.deleteMovie = this.deleteMovie.bind(this);
   }
+
   handleDeleteMovie(e, title) {
     e.preventDefault();
     this.props.deleteMovie(title);
@@ -25,15 +27,23 @@ class MovieContainer extends Component {
     this.props.editMovie(movie);
   }
 
+  deleteMovie(id) {
+    this.props.deleteMovie(id);
+  }
+
   renderList() {
 
     return this.props.movies.map((movie, i) => {
-      console.log(movie);
       return (
-        <tr key={i}>
-          <td><Movie id={movie.id} title={movie.title} description={movie.description} saveChange={this.saveChange} /></td>
-          <td><a href="" onClick={(event) => this.handleDeleteMovie(event, movie.id)}>x</a></td>
-        </tr>
+        <div key={i}>
+          <Movie
+            id={movie.id}
+            title={movie.title}
+            description={movie.description}
+            saveChange={this.saveChange}
+            deleteMovie={this.deleteMovie}
+          />
+        </div>
       )
     })
   }
@@ -42,19 +52,8 @@ class MovieContainer extends Component {
     return (
       <div>
         <AddMovie addMovie={this.props.addMovie} />
-        <br />
-        Movie: {this.props.movies.length}
-        <table>
-          <thead>
-            <tr>
-              <th>Movie</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderList()}
-          </tbody>
-        </table>
+        {this.props.movies.length}
+        {this.renderList()}
       </div>
     );
   }
@@ -77,7 +76,6 @@ function mapStateToProps(state) {
 //     },
 //   }
 // }
-
 
 
 export default connect (mapStateToProps, { addMovie, deleteMovie, getMovies, editMovie }) (MovieContainer);

@@ -5,24 +5,22 @@ class Movie extends Component {
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-
     this.state = {
       editing: false,
     }
   }
 
-  handleChange(e) {
+  handleDelete(e) {
     e.preventDefault();
-    this.props.handleEditChange();
+    this.props.deleteMovie(this.props.id);
   }
 
-  enableEditing(e) {
+  startEditing(e) {
     e.preventDefault();
     this.setState({editing: true});
   }
 
-  disableEditing() {
+  stopEditing() {
     this.setState({editing: false});
     this.props.saveChange(this.props.id, this.refs.title.value, this.refs.description.value)
   }
@@ -36,26 +34,24 @@ class Movie extends Component {
       <div className="movie">
         {this.state.editing &&
           <div>
-            Title: <input autoComplete="off"  type="text" name="title" ref="title" defaultValue={this.props.title} /> <br /> <br />
-            Description: <input autoComplete="off" type="text" ref="description" name="description" defaultValue={this.props.description}/> <br />
-            <a  href='#' onClick={(event) => this.disableEditing()}>FINISH</a>
+            <p>ID: { id }</p>
+            <p>Title: <input autoComplete="off"  type="text" name="title" ref="title" defaultValue={this.props.title} /></p>
+            <p>Description: <input autoComplete="off" type="text" ref="description" name="description" defaultValue={this.props.description}/></p>
+            <p><a href='#' onClick={(event) => this.stopEditing()}>Save</a></p>
           </div>
         }
-
         { !this.state.editing &&
           <div>
             <p>ID: { id }</p>
             <p>Title: { title }</p>
             <p>Description: { description }</p>
-            <a href='#' onClick={(event) => this.enableEditing(event)}>EDIT</a>
+            <p><a href='#' onClick={(event) => this.startEditing(event)}>Edit</a></p>
+            <p><a href='#' onClick={(event) => this.handleDelete(event)}>x</a></p>
           </div>
         }
-
-
       </div>
     );
   }
 }
-
 
 export default Movie;

@@ -60,8 +60,6 @@ class AddMovie extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           Title: <input autoComplete="off" type="text" name="title" ref="title" onChange={this.handleChange} /> <br /> {this.state.errors.title}<br />
-
-          <br /><br />
           Description: <input autoComplete="off" type="text" ref="description" name="description" onChange={this.handleChange} /> <br /> {this.state.errors.description}<br />
           <button type="submit" >Add</button>
         </form>
