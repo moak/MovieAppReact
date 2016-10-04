@@ -13,13 +13,12 @@ class Movie extends Component {
   }
 
   handleChange(e) {
-
-    // this.props[e.target.name] = e.target.value;
-
+    e.preventDefault();
     this.props.handleEditChange();
   }
 
-  enableEditing() {
+  enableEditing(e) {
+    e.preventDefault();
     this.setState({editing: true});
   }
 
@@ -39,7 +38,7 @@ class Movie extends Component {
           <div>
             Title: <input autoComplete="off"  type="text" name="title" ref="title" defaultValue={this.props.title} /> <br /> <br />
             Description: <input autoComplete="off" type="text" ref="description" name="description" defaultValue={this.props.description}/> <br />
-            <p onClick={(event) => this.disableEditing()}>FINISH</p>
+            <a  href='#' onClick={(event) => this.disableEditing()}>FINISH</a>
           </div>
         }
 
@@ -48,7 +47,7 @@ class Movie extends Component {
             <p>ID: { id }</p>
             <p>Title: { title }</p>
             <p>Description: { description }</p>
-            <p onClick={(event) => this.enableEditing()}>EDIT</p>
+            <a href='#' onClick={(event) => this.enableEditing(event)}>EDIT</a>
           </div>
         }
 
