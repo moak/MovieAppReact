@@ -2,6 +2,6 @@
 
 How to use: 
 
-Client : npm start
+Client : npm i && npm start
 
-Server: npm run server
+Server: npm i && npm run server
