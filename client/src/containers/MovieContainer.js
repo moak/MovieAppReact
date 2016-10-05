@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 import Movie from '../components/Movie/Movie';
+import MovieList from '../components/MovieList/MovieList';
 import AddMovie from '../components/AddMovie/AddMovie';
 import { addMovie, deleteMovie, getMovies, editMovie } from '../actions/index';
 
@@ -31,29 +32,28 @@ class MovieContainer extends Component {
     this.props.deleteMovie(id);
   }
 
-  renderList() {
-
-    return this.props.movies.map((movie, i) => {
-      return (
-        <div key={i}>
-          <Movie
-            id={movie.id}
-            title={movie.title}
-            description={movie.description}
-            saveChange={this.saveChange}
-            deleteMovie={this.deleteMovie}
-          />
-        </div>
-      )
-    })
-  }
-
   render() {
+    const movieList = this.props.movies.map((movie, i) => {
+      return (
+        <Movie
+          key={i}
+          id={movie.id}
+          title={movie.title}
+          description={movie.description}
+          saveChange={this.saveChange}
+          deleteMovie={this.deleteMovie}
+        />
+      );
+    });
+
     return (
       <div>
         <AddMovie addMovie={this.props.addMovie} />
+        <br />
         {this.props.movies.length}
-        {this.renderList()}
+        <MovieList>
+          {movieList}
+        </MovieList>
       </div>
     );
   }

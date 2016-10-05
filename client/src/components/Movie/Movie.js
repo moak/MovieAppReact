@@ -32,21 +32,26 @@ class Movie extends Component {
 
     return (
       <div className="movie">
+        <div className="movieThumb">
+          <img src="http://placehold.it/140x100" />
+        </div>
         {this.state.editing &&
-          <div>
-            <p>ID: { id }</p>
+          <div className="movieInfo" >
             <p>Title: <input autoComplete="off"  type="text" name="title" ref="title" defaultValue={this.props.title} /></p>
             <p>Description: <input autoComplete="off" type="text" ref="description" name="description" defaultValue={this.props.description}/></p>
-            <p><a href='#' onClick={(event) => this.stopEditing()}>Save</a></p>
+            <div className="movieActions">
+              <a href='#' onClick={(event) => this.stopEditing()}>Save</a>
+            </div>
           </div>
         }
         { !this.state.editing &&
-          <div>
-            <p>ID: { id }</p>
-            <p>Title: { title }</p>
-            <p>Description: { description }</p>
-            <p><a href='#' onClick={(event) => this.startEditing(event)}>Edit</a></p>
-            <p><a href='#' onClick={(event) => this.handleDelete(event)}>x</a></p>
+          <div className="movieInfo" >
+            <p className='movieTitle'>{ title }</p>
+            <p className='movieDescription'>{ description }{ description }{ description }</p>
+            <div className="movieActions">
+              <a href='#' onClick={(event) => this.startEditing(event)}>Edit</a>
+              <a href='#' onClick={(event) => this.handleDelete(event)}>x</a>
+            </div>
           </div>
         }
       </div>
